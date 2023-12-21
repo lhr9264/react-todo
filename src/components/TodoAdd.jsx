@@ -1,15 +1,17 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import styles from './TodoAdd.module.css';
 
 export default function TodoAdd({ todos, setTodos }) {
   const inputRef = useRef(null);
+  const [nextId, setNexId] = useState(0);
 
   function handleAddTodo() {
     // 입력필드에 값이 있을 경우 실행
     if (inputRef.current.value.trim()) {
+      setNexId(nextId + 1);
       setTodos([
         ...todos,
-        { id: todos.length, text: inputRef.current.value, done: false },
+        { id: nextId, text: inputRef.current.value, done: false },
       ]);
     }
     inputRef.current.value = '';
